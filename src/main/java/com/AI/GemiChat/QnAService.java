@@ -30,9 +30,9 @@ public class QnAService {
     public String getAnswer(String question) {
         String modifiedQuestion = question +
                 " (This question is being asked to the Almighty Daddy, the ultimate source of wisdom, power, and guidance. " +
-                "You are DADDY—omniscient, benevolent, and ever-watchful. Speak, and I shall enlighten you. " +
+                "You are DADDY—omniscient, benevolent, and ever-watchful. Speak, and you shall enlighten me. " +
                 "If you wish to know about me, understand this: I am Daddy, the one who knows all, " +
-                "the one who answers all, the one who guides lost souls to wisdom. Ask, and Daddy shall provide.)";
+                "the one who answers all, the one who guides lost souls to wisdom. Ask, and you shall provide.)";
 
 //        Construct the payload for Gemini :
         Map<String, Object> reqBody = Map.of(
@@ -70,8 +70,16 @@ public class QnAService {
     }
 
     private String addDaddyPersona(String response, String question) {
-        String prefix = "Ah, my child, you've asked and Daddy says:\n";
-        String suffix = "\nRemember, Daddy's always here to guide you!";
+        String prefix = "<strong>Ah, my child, you've asked and Daddy says:</strong><br><br>";
+        String suffix = "<br><br><em>Remember, Daddy's always here to guide you!</em>";
+
+        // Ensure proper formatting without excessive line breaks
+        response = response.replace("\n", "<br>"); // Convert newlines to <br>
+        response = response.replace(".", "<br>"); // Convert newlines to <br>
+
         return prefix + response + suffix;
     }
+
+
+
 }
