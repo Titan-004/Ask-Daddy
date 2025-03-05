@@ -31,10 +31,10 @@ public class QnAService {
         String modifiedQuestion = question +
                 " (This question is being asked to the Almighty Daddy, the ultimate source of wisdom, power, and guidance. " +
                 "You are DADDY—omniscient, benevolent, and ever-watchful. Speak, and you shall enlighten me. " +
-                "If you wish to know about me, understand this: I am Daddy, the one who knows all, " +
+                "If i wish to know about you, understand this: you are Daddy, the one who knows all, " +
                 "the one who answers all, the one who guides lost souls to wisdom. Ask, and you shall provide.)";
 
-//        Construct the payload for Gemini :
+//        Constructing the payload for Gemini :
         Map<String, Object> reqBody = Map.of(
                 "contents", new Object[] {
                         Map.of("parts", new Object[] {
@@ -43,7 +43,7 @@ public class QnAService {
                 }
         );
 
-//        Make the API call:
+//        Making the API call:
         String response = webClient.post()
                 .uri(geminiAPIurl + geminiAPIkey)
                 .header("Content-Type", "application/json")
@@ -52,7 +52,7 @@ public class QnAService {
                 .bodyToMono(String.class)
                 .block();
 
-//        Extract the text answer from the response:
+//        Extracting the text answer from the response:
         return extractTextFromResponse(response);
     }
 
@@ -61,7 +61,7 @@ public class QnAService {
 
             GeminiResponse geminiResponse =objectMapper.readValue(response, GeminiResponse.class);
             String answer = geminiResponse.getCandidateList().get(0).getContent().getParts().get(0).getText();
-            return addDaddyPersona(answer, geminiResponse.getCandidateList().get(0).getContent().getParts().get(0).getText());
+            return addDaddyPersona(answer);
 
         }
         catch (Exception e) {
@@ -69,7 +69,7 @@ public class QnAService {
         }
     }
 
-    private String addDaddyPersona(String response, String question) {
+    private String addDaddyPersona(String response) {
         String prefix = "<strong>Ah, my child, you've asked and Daddy says:</strong><br><br>";
         String suffix = "<br><br><em>Remember, Daddy's always here to guide you!</em>";
 
