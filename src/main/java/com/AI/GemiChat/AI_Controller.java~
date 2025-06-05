@@ -7,7 +7,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/ai/qna")
-@CrossOrigin(origins = "https://ask-daddy-vite.vercel.app")  // or "*" for testing
+@CrossOrigin(origins = "http://localhost:5173")  // or "*" for testing
 
 public class AI_Controller {
     private final QnAService qnaService;
