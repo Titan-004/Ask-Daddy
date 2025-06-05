@@ -1,8 +1,6 @@
 package com.AI.GemiChat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -74,12 +72,10 @@ public class QnAService {
         String prefix = "<strong>Ah, my child, you've asked and Daddy says:</strong><br><br>";
         String suffix = "<br><br><em>Remember, Daddy's always here to guide you!</em>";
 
-        // Use commonmark to convert Markdown to HTML
-        Parser parser = Parser.builder().build();
-        HtmlRenderer renderer = HtmlRenderer.builder().build();
-        String htmlBody = renderer.render(parser.parse(response));
+        // Only convert line breaks to <br>, not full stops
+        response = response.replace("\n", "<br>");
 
-        return prefix + htmlBody + suffix;
+        return prefix + response + suffix;
     }
 
 

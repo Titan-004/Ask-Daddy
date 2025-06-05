@@ -1,15 +1,14 @@
 package com.AI.GemiChat;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
 @RequestMapping("/ai/qna")
+@CrossOrigin(origins = "http://localhost:5173")  // or "*" for testing
+
 public class AI_Controller {
     private final QnAService qnaService;
 
